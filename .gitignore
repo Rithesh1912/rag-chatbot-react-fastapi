@@ -1,0 +1,21 @@
+# Python virtual environment
+backend/venv/
+
+# Node modules
+frontend/node_modules/
+
+# ChromaDB storage
+backend/chroma/
+
+# Build files
+frontend/build/
+
+# Mac/Windows temp
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
