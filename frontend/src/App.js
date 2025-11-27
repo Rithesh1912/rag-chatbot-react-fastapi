@@ -40,6 +40,26 @@ function App() {
     setLoading(false);
   };
 
+  // upload file
+  const handleFileUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const res = await fetch("http://127.0.0.1:9000/upload", {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await res.json();
+
+    alert("Uploaded: " + file.name);
+
+  };
+
+
   return (
     <div
       style={{
@@ -111,6 +131,22 @@ function App() {
             marginBottom: "10px",
           }}
         >
+          {/* PDF Upload */}
+          <input
+            type="file"
+            accept="application/pdf"
+            onChange={handleFileUpload}
+            style={{
+              marginBottom: "10px",
+              padding: "8px",
+              width: "100%",
+              backgroundColor: darkMode ? "#2b2b2b" : "#fff",
+              color: darkMode ? "white" : "black",
+              border: darkMode ? "1px solid #555" : "1px solid #ccc",
+              borderRadius: "8px",
+            }}
+          />
+
           <button
             onClick={() => setMode("general")}
             style={{
@@ -229,13 +265,13 @@ function App() {
               border: darkMode ? "1px solid #555" : "1px solid #ccc",
               marginRight: "10px",
             }}
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          placeholder={
-            mode === "general"
-              ? "Ask anything..."
-              : "Ask from uploaded document..."
-          }
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder={
+              mode === "general"
+                ? "Ask anything..."
+                : "Ask from uploaded document..."
+            }
           />
 
           <button
@@ -251,6 +287,7 @@ function App() {
           >
             Send
           </button>
+
           <button
             onClick={() => setChat([])}
             style={{
@@ -264,6 +301,7 @@ function App() {
           >
             Clear
           </button>
+
 
         </div>
       </div>
